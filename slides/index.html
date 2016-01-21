@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>My first Unikernel with Mirage OS</title>
+
+    <meta name="description" content="My talk about Mirage OS and unikernels at devwinter 2016">
+    <meta name="author" content="Matt Gray">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+      <section>
+        <h2>My first Unikernel with Mirage OS</h2>
+        <p>Matt Gray - <a href="http://twitter.com/portedegrange">@portedegrange</a></p>
+      </section>
+      <section>
+        <section>
+          <h2>What is a unikernel?</h2>
+        </section>
+        <section>
+        <p>Consider a simple web service, serving static <span style="text-decoration: line-through;">webpages</span> <em>cat pictures</em> over HTTP, running in a virtualised environment like AWS</p>
+          <p>What "machinery" is traditionally required to perform this task?</p>
+        </section>
+        <section>
+          <pre>
+             -------------------
+            | web server config |
+             -------------------
+            | web server        | <span class="fragment">&lt; many features you don't need</span>
+             -------------------
+            | OS libraries      | <span class="fragment">&lt; huge APIs (+bugs ?)</span>
+             -------------------
+            | OS kernel         | <span class="fragment">&lt; driver support for old hardware</span>
+             -------------------
+            | hypervisor        |
+             -------------------
+            | hardware          |
+             -------------------
+          </pre>
+          <p class="fragment">It would be nice if we didn't have to worry about securing and maintaining all this stuff!</p>
+        </section>
+        <section>
+          <p>How about?</p>
+           <pre>
+           ---------------------
+          | web server + config | <span class="fragment">&lt; web server <em>is</em> the (uni)kernel</span>
+           ---------------------
+          | hypervisor          |
+           ---------------------
+          | hardware            | 
+           ---------------------
+          </pre>
+        </section>
+        <section>
+          <p>No unnecessary dependencies, just the things you need to run your application!</p>
+        </section>
+        <section>
+          <p>Mirage OS is one approach to building unikernels.
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>Mirage OS</h1>
+        </section>
+        <section>
+          <p>Isn't writing your own kernel a bit, errr, <em>difficult</em>???
+        </section>
+        <section>
+          <pre>
+          <code>
+          open Lwt
+
+          module Main (C: V1_LWT.CONSOLE) = struct
+
+            let start c =
+              lwt () =  OS.Time.sleep 5.0 in
+              C.log c "hello unikernel world";
+              return ()
+            end
+          </code>
+          </pre>
+        </section>
+        <section>
+          <em>demo</em>
+        </section>
+        <section>
+          <p>What's going on?</p>
+        </section>
+        <section>
+          <p>We write Mirage applications in the OCaml programming language</p>
+        </section>
+        <section>
+          <p>Mirage is a library operating system.</p>
+        </section>
+        <section>
+          <p>Mirage can create Unix executables or unikernels that run on the Xen hypervisor</p>
+        </section>
+        <section>
+          <p>Mirage has libraries that implement a network stack, access to block storage, and other things that your OS would usually provide</p>
+        </section>
+        <section>
+          <p>The `mirage` command line tool configures your application code to use the correct libraries, based on the desired target.</p>
+        </section>
+        <section>
+          <p>In the rest of this hands on session, I hope we can all build a unikernel for that most noble of activities, serving cat pictures to the Internets!</p>
+        </section>
+      </section>
+      <section>
+        <section>
+          <p><code>vagrant init mgray/mirage-xen-virtualbox</code></p>
+        </section>
+        <section>
+          <p><code>vagrant up --provisioner=virtualbox</code></p>
+        </section>
+        <section>
+          <p><code>vagrant up --provisioner=virtualbox</code></p>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>Learn more</h1>
+        </section>
+        <section>
+          <p><a href="http://Unikernel.org">Unikernel.org</a> - Not just Mirage OS</p>
+        </section>
+        <section>
+          <p>News just in!</p>
+          <p><img src="docker.png" /></p>
+        </section>
+        <section>
+          <p>Mirage OS homepage</p>
+          <p><a href="http://www.openmirage.org">http://www.openmirage.org</a></p>
+        </section>
+        <section>
+          <p>Learn OCaml:</p>
+          <p><a href="https://realworldocaml.org/">https://realworldocaml.org/</a></p>
+        </section>
+        <section>
+          <p>Run a Mirage OS unikernel in AWS</p>
+          <p><a href="http://www.somerandomidiot.com/blog/2014/03/14/its-a-mirage/">http://www.somerandomidiot.com/blog/2014/03/14/its-a-mirage/</a></p>
+          </section>
+          <section>
+            <p>Go and see Mindy's talk this afternoon!</p>
+          </section>
+          </section>
+          <section>
+          <section>
+          <p>Cats courtesy of:</p>
+            <p>Scott Granneman - https://commons.wikimedia.org/wiki/File:Rsgranne_-_Cats_cats_cats!_(Arrow_Rock,_Missouri,_20050703)_03_(by-sa).jpg</p>
+            <p><Maxo - https://commons.wikimedia.org/wiki/File:Young_cats.jpg</p>
+          </section>
+          <section>
+      </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true },
+          { src: 'plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
