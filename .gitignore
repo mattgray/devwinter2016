@@ -10,3 +10,13 @@ cat_server/with_pictures/main.native
 cat_server/with_pictures/mir-cat-server
 cat_server/with_pictures/static1.ml
 cat_server/with_pictures/static1.mli
+cat_server/helloworld/Makefile
+cat_server/helloworld/_build/
+cat_server/helloworld/cat-server.xe
+cat_server/helloworld/cat-server.xl
+cat_server/helloworld/cat-server.xl.in
+cat_server/helloworld/cat-server_libvirt.xml
+cat_server/helloworld/log
+cat_server/helloworld/main.ml
+cat_server/helloworld/main.native
+cat_server/helloworld/mir-cat-server
