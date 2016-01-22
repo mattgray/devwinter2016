@@ -149,6 +149,23 @@
         <section>
           <p><code>git clone https://github.com/mattgray/devwinter2016</code></p>
         </section>
+        <section>
+          <p>Build and run Mirage app for Unix</p>
+          <p><code>mirage configure --unix</code></p>
+          <p><code>make</code></p>
+          <p><code>./mir-&lt;name&gt;</code></p>
+        </section>
+        <section>
+          <p>Build a Mirage app for Xen</p>
+          <p><code>mirage configure --xen</code></p>
+          <p><code>make</code></p>
+        </section>
+        <section>
+          <p>Run as a Xen domain</p>
+          <p><code>sudo xl create &lt;name&gt; -c</code></p>
+          <p><code>sudo xl list</code></p>
+          <p><code>sudo xl destroy &lt;name&gt;</code></p>
+        </section>
       </section>
       <section>
         <section>

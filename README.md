@@ -16,6 +16,10 @@ To bring up the dev environment:
 
 `vagrant ssh` - Access the box
 
+Set up opam (Ocaml package manager)
+
+``eval `opam config env```
+
 Mirage OS commands:
 
 `mirage configure --unix`
@@ -25,3 +29,9 @@ or
 `mirage configure --xen`
 
 `make`
+
+Run a unikernel in Xen:
+
+`sudo xl create <name> -c`
+`sudo xl list`
+`sudo xl destroy <name> -c`
