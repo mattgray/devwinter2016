@@ -5,8 +5,11 @@ module Main (C:CONSOLE) (S: STACKV4) = struct
   let on_error_close = fun console flow ->
     C.log console "An error occured"; S.TCPV4.close flow
 
-  let http_response = "HTTP/1.0 200 OK\r\nContent-Type:
-    text/html\r\n\r\n<html><body><h1>Hello world!</h1></body></html>"
+  let http_response =
+    "HTTP/1.0 200 OK\r\n\
+     Content-Type: text/html\r\n\
+     \r\n\
+     <html><body><h1>Hello world!</h1></body></html>"
 
   let send_response = fun console flow ->
     S.TCPV4.write flow (Cstruct.of_string http_response)

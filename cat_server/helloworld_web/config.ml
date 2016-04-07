@@ -8,5 +8,5 @@ let stack = try match Sys.getenv "NET" with
   with Not_found -> socket_stackv4 default_console [Ipaddr.V4.any]
 
 let () = register "cat-server" [
-  main $ default_console $ stack
-]
+    main $ default_console $ stack
+  ]

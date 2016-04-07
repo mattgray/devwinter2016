@@ -2,10 +2,10 @@ open Lwt
 open V1_LWT
 
 module Main
-  (C:CONSOLE)
-  (S: Cohttp_lwt.Server)
-  (FS: KV_RO)
-  = struct
+    (C:CONSOLE)
+    (S: Cohttp_lwt.Server)
+    (FS: KV_RO)
+= struct
 
   let start console http pics =
     let read_fs name =

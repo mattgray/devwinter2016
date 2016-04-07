@@ -12,5 +12,5 @@ let stack = try match Sys.getenv "NET" with
 let http = http_server (conduit_direct stack)
 
 let () = register "cat-server" [
-  main $ default_console $ http $ pics
-]
+    main $ default_console $ http $ pics
+  ]
