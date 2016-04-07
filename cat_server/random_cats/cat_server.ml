@@ -7,7 +7,7 @@ module Main
     (FS: KV_RO)
 = struct
 
-  let start console http pics =
+  let start _console http pics =
 
     Random.self_init ();
 
@@ -31,7 +31,7 @@ module Main
 
     let get_path request = Uri.path (Cohttp.Request.uri request) in
 
-    let handle_request conn_id request body =
+    let handle_request _conn_id request _body =
       match get_path request with
       | "/" -> S.respond_string ~status:`OK ~body:(get_index_page ()) ()
       | "/cats/random" ->

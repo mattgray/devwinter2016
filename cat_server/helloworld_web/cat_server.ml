@@ -26,7 +26,7 @@ module Main (C:CONSOLE) (S: STACKV4) = struct
           send_response console flow
 
   let start console stackv4 =
-    S.listen_tcpv4 stackv4 8080 (handle_request console);
+    S.listen_tcpv4 stackv4 ~port:8080 (handle_request console);
 
     S.listen stackv4
 end
